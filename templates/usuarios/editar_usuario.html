@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar usuário{% endblock %}
+
+{% block conteudo %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <h2 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Editar usuário</h2>
+
+        <form action="{{ url_for('editar_usuario', id=usuario.id) }}" method="POST">
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome completo <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nome" name="nome"
+                    value="{{ usuario.nome }}" placeholder="Nome do usuário" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" name="email"
+                    value="{{ usuario.email }}" placeholder="email@exemplo.com" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="senha" class="form-label">Nova senha <small class="text-muted">(deixe em branco para não alterar)</small></label>
+                <input type="password" class="form-control" id="senha" name="senha"
+                    placeholder="Nova senha">
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-1"></i>Salvar
+                </button>
+                <a href="{{ url_for('listar_usuarios') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
