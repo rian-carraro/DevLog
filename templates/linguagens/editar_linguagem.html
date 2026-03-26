@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar linguagem{% endblock %}
+
+{% block conteudo %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <h2 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Editar linguagem</h2>
+
+        <form action="{{ url_for('editar_linguagem', id=linguagem.id) }}" method="POST">
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome da linguagem <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nome" name="nome"
+                    value="{{ linguagem.nome }}" placeholder="Ex: Python, JavaScript..." required>
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="Quero estudar"  {% if linguagem.status == 'Quero estudar' %}selected{% endif %}>Quero estudar</option>
+                    <option value="Estudando"      {% if linguagem.status == 'Estudando' %}selected{% endif %}>Estudando</option>
+                    <option value="Concluído"      {% if linguagem.status == 'Concluído' %}selected{% endif %}>Concluído</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="nivel" class="form-label">Nível <span class="text-danger">*</span></label>
+                <select class="form-select" id="nivel" name="nivel" required>
+                    <option value="Iniciante"     {% if linguagem.nivel == 'Iniciante' %}selected{% endif %}>Iniciante</option>
+                    <option value="Intermediário" {% if linguagem.nivel == 'Intermediário' %}selected{% endif %}>Intermediário</option>
+                    <option value="Avançado"      {% if linguagem.nivel == 'Avançado' %}selected{% endif %}>Avançado</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="nota" class="form-label">Notas pessoais</label>
+                <textarea class="form-control" id="nota" name="nota" rows="3"
+                    placeholder="Anotações sobre essa linguagem...">{{ linguagem.nota }}</textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-1"></i>Salvar
+                </button>
+                <a href="{{ url_for('listar_linguagens') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

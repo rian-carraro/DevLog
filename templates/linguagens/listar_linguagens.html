@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block titulo %}Linguagens{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-terminal me-2"></i>Linguagens de programação</h2>
+    <a href="{{ url_for('inserir_linguagem') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Nova linguagem
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Linguagem</th>
+                <th>Status</th>
+                <th>Nível</th>
+                <th>Notas</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for linguagem in linguagens %}
+            <tr>
+                <td>{{ linguagem.id }}</td>
+                <td><strong>{{ linguagem.nome }}</strong></td>
+                <td>
+                    {% if linguagem.status == 'Estudando' %}
+                        <span class="badge bg-success">{{ linguagem.status }}</span>
+                    {% else %}
+                        <span class="badge bg-secondary">{{ linguagem.status }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ linguagem.nivel }}</td>
+                <td class="text-muted small">{{ linguagem.nota }}</td>
+                <td class="text-center">
+                    <a href="{{ url_for('editar_linguagem', id=linguagem.id) }}" class="btn btn-sm btn-outline-warning me-1">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a href="{{ url_for('excluir_linguagem', id=linguagem.id) }}" class="btn btn-sm btn-outline-danger"
+                        onclick="return confirmarExclusao()">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
