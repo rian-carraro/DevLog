@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevLog — Equipe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="pagina-equipe pagina-publica">
+
+    <div class="container py-5">
+
+        <!-- Cabeçalho da página -->
+        <div class="text-center mb-5">
+            <h1 class="equipe-titulo">
+                <i class="bi bi-people-fill me-3"></i>Nossa Equipe
+            </h1>
+            <p class="equipe-subtitulo">
+                Conheça quem desenvolveu o DevLog
+            </p>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm mt-2">
+                <i class="bi bi-arrow-left me-1"></i>Voltar ao início
+            </a>
+        </div>
+
+        <!-- Cards dos integrantes -->
+        <div class="row justify-content-center g-4">
+
+            <!-- Integrante 1 -->
+            <div class="col-md-5">
+                <div class="card card-equipe text-center h-100">
+                    <div class="card-body p-4">
+                        <img src="{{ url_for('static', filename='imgs/foto1.png') }}"
+                            alt="Foto Rian" class="foto-equipe mb-3"
+                            onerror="this.src='https://ui-avatars.com/api/?name=Rian+Silva&background=0d6efd&color=fff&size=120'">
+                        <h4 class="fw-bold">Rian Carraro Permonian</h4>
+                        <p class="text-muted small mb-2">
+                            <i class="bi bi-envelope me-1"></i>riancarraro@gmail.com
+                        </p>
+                        <p class="card-text">
+                            Estudante de Gestão da Tecnologia da informação na Fatec.
+                            Apaixonado por desenvolvimento web e automação. Está aprendendo
+                            Flask e Python para construir sistemas do zero.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integrante 2 — substitua com os dados do seu parceiro -->
+            <div class="col-md-5">
+                <div class="card card-equipe text-center h-100">
+                    <div class="card-body p-4">
+                        <img src="{{ url_for('static', filename='imgs/foto2.png') }}"
+                            alt="Foto Parceiro" class="foto-equipe mb-3"
+                            onerror="this.src='https://ui-avatars.com/api/?name=Parceiro&background=198754&color=fff&size=120'">
+                        <h4 class="fw-bold">Lucas Andriotti Ciamaricone</h4>
+                        <p class="text-muted small mb-2">
+                            <i class="bi bi-envelope me-1"></i>lucasandriotticiamaricone@gmail.com
+                        </p>
+                        <p class="card-text">
+                            Estudante de Sistema para internet na Fatec.
+                            Fissurado em tecnologia. Está aprendendo
+                            Flask e Python para construir sistemas do zero.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+{% extends "base_publica.html" %}
+
+{% block titulo %}Início{% endblock %}
+
+{% block conteudo %}
+
+<!-- Hero section -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="hero-titulo">
+            <i class="bi bi-code-slash me-3"></i>DevLog
+        </h1>
+        <p class="hero-subtitulo">
+            Organize sua jornada de aprendizado em programação.<br>
+            Acompanhe as linguagens que você estuda e salve seus melhores recursos.
+        </p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+            </a>
+            <a href="{{ url_for('cadastro') }}" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-person-plus me-2"></i>Criar conta
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Funcionalidades -->
+<section class="container my-5">
+    <h2 class="text-center mb-4 secao-titulo">O que você pode fazer</h2>
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card card-funcionalidade h-100 text-center">
+                <div class="card-body p-4">
+                    <i class="bi bi-terminal-fill icone-card"></i>
+                    <h5 class="card-title mt-3">Linguagens</h5>
+                    <p class="card-text">
+                        Registre as linguagens que quer aprender e as que já está estudando.
+                        Adicione notas e defina o nível de cada uma.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-funcionalidade h-100 text-center">
+                <div class="card-body p-4">
+                    <i class="bi bi-bookmark-star-fill icone-card"></i>
+                    <h5 class="card-title mt-3">Recursos</h5>
+                    <p class="card-text">
+                        Salve links de vídeos, sites e cursos que você está acompanhando.
+                        Acesse direto pelo sistema com um clique.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-funcionalidade h-100 text-center">
+                <div class="card-body p-4">
+                    <i class="bi bi-people-fill icone-card"></i>
+                    <h5 class="card-title mt-3">Comunidade</h5>
+                    <p class="card-text">
+                        Crie sua conta e faça parte de uma comunidade de desenvolvedores
+                        organizando seus estudos.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer da página pública -->
+<footer class="footer-devlog">
+    <div class="container-fluid text-center">
+        <p class="mb-0">
+            <i class="bi bi-code-slash me-1"></i>
+            DevLog &copy; 2026 — Desenvolvido por <strong>Rian</strong> e <strong>Lucas</strong>
+        </p>
+    </div>
+</footer>
+
+{% endblock %}
