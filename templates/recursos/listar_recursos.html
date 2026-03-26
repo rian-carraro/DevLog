@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block titulo %}Recursos{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-bookmark-star me-2"></i>Recursos de estudo</h2>
+    <a href="{{ url_for('inserir_recurso') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Novo recurso
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Linguagem</th>
+                <th>Notas</th>
+                <th class="text-center">Acessar</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recurso in recursos %}
+            <tr>
+                <td>{{ recurso.id }}</td>
+                <td><strong>{{ recurso.titulo }}</strong></td>
+                <td>
+                    {% if recurso.tipo == 'Vídeo' %}
+                        <span class="badge bg-danger"><i class="bi bi-play-circle me-1"></i>{{ recurso.tipo }}</span>
+                    {% else %}
+                        <span class="badge bg-primary"><i class="bi bi-globe me-1"></i>{{ recurso.tipo }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ recurso.linguagem }}</td>
+                <td class="text-muted small">{{ recurso.nota }}</td>
+                <td class="text-center">
+                    <!-- Botão que abre o link diretamente -->
+                    <a href="{{ recurso.url }}" target="_blank" class="btn btn-sm btn-outline-success">
+                        <i class="bi bi-box-arrow-up-right me-1"></i>Abrir
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="{{ url_for('editar_recurso', id=recurso.id) }}" class="btn btn-sm btn-outline-warning me-1">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a href="{{ url_for('excluir_recurso', id=recurso.id) }}" class="btn btn-sm btn-outline-danger"
+                        onclick="return confirmarExclusao()">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

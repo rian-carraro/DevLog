@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar recurso{% endblock %}
+
+{% block conteudo %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <h2 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Editar recurso</h2>
+
+        <form action="{{ url_for('editar_recurso', id=recurso.id) }}" method="POST">
+
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="titulo" name="titulo"
+                    value="{{ recurso.titulo }}" placeholder="Nome do recurso" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo <span class="text-danger">*</span></label>
+                <select class="form-select" id="tipo" name="tipo" required>
+                    <option value="Vídeo"         {% if recurso.tipo == 'Vídeo' %}selected{% endif %}>Vídeo</option>
+                    <option value="Site"          {% if recurso.tipo == 'Site' %}selected{% endif %}>Site</option>
+                    <option value="Curso"         {% if recurso.tipo == 'Curso' %}selected{% endif %}>Curso</option>
+                    <option value="Documentação"  {% if recurso.tipo == 'Documentação' %}selected{% endif %}>Documentação</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="url" class="form-label">Link (URL) <span class="text-danger">*</span></label>
+                <input type="url" class="form-control" id="url" name="url"
+                    value="{{ recurso.url }}" placeholder="https://..." required>
+            </div>
+
+            <div class="mb-3">
+                <label for="linguagem" class="form-label">Linguagem relacionada</label>
+                <select class="form-select" id="linguagem" name="linguagem">
+                    <option value="">— Nenhuma específica —</option>
+                    {% for ling in linguagens %}
+                        <option value="{{ ling.nome }}" {% if recurso.linguagem == ling.nome %}selected{% endif %}>
+                            {{ ling.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="nota" class="form-label">Notas pessoais</label>
+                <textarea class="form-control" id="nota" name="nota" rows="3"
+                    placeholder="Anotações sobre esse recurso...">{{ recurso.nota }}</textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-1"></i>Salvar
+                </button>
+                <a href="{{ url_for('listar_recursos') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

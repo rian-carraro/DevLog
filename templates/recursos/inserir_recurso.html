@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block titulo %}Novo recurso{% endblock %}
+
+{% block conteudo %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <h2 class="mb-4"><i class="bi bi-bookmark-plus me-2"></i>Novo recurso</h2>
+
+        <form action="{{ url_for('inserir_recurso') }}" method="POST">
+
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="titulo" name="titulo"
+                    placeholder="Ex: Curso de Python - Canal X" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo <span class="text-danger">*</span></label>
+                <select class="form-select" id="tipo" name="tipo" required>
+                    <option value="" disabled selected>Selecione o tipo</option>
+                    <option value="Vídeo">Vídeo</option>
+                    <option value="Site">Site</option>
+                    <option value="Curso">Curso</option>
+                    <option value="Documentação">Documentação</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="url" class="form-label">Link (URL) <span class="text-danger">*</span></label>
+                <input type="url" class="form-control" id="url" name="url"
+                    placeholder="https://..." required>
+            </div>
+
+            <div class="mb-3">
+                <label for="linguagem" class="form-label">Linguagem relacionada</label>
+                <select class="form-select" id="linguagem" name="linguagem">
+                    <option value="">— Nenhuma específica —</option>
+                    {% for linguagem in linguagens %}
+                        <option value="{{ linguagem.nome }}">{{ linguagem.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="nota" class="form-label">Notas pessoais</label>
+                <textarea class="form-control" id="nota" name="nota" rows="3"
+                    placeholder="Por que salvou esse recurso? É bom para iniciantes? Está assistindo?"></textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-1"></i>Salvar
+                </button>
+                <a href="{{ url_for('listar_recursos') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
