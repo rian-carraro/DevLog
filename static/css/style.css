@@ -1,0 +1,182 @@
+/* ============================================
+   DevLog — CSS Personalizado
+   Identidade visual: tecnologia, dark, clean
+   ============================================ */
+
+/* Variáveis de cor do sistema */
+:root {
+    --cor-primaria: #0d6efd;
+    --cor-fundo-escuro: #0f1117;
+    --cor-fundo-card: #1a1d27;
+    --cor-borda: #2a2d3a;
+    --cor-texto: #e2e8f0;
+    --cor-muted: #8892a4;
+}
+
+
+/* ── Página pública (index, login, cadastro) ── */
+
+.pagina-publica {
+    background-color: var(--cor-fundo-escuro);
+    color: var(--cor-texto);
+    min-height: 100vh;
+}
+
+.hero-section {
+    padding: 100px 0 60px;
+    background: linear-gradient(135deg, #0f1117 0%, #1a1d27 100%);
+}
+
+.hero-titulo {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1px;
+}
+
+.hero-subtitulo {
+    font-size: 1.2rem;
+    color: var(--cor-muted);
+    margin-top: 1rem;
+    line-height: 1.8;
+}
+
+.secao-titulo {
+    color: var(--cor-texto);
+    font-weight: 700;
+}
+
+/* Cards da página inicial */
+.card-funcionalidade {
+    background-color: var(--cor-fundo-card);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card-funcionalidade:hover {
+    transform: translateY(-4px);
+    border-color: var(--cor-primaria);
+}
+
+.icone-card {
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
+}
+
+
+/* ── Formulários de login e cadastro ── */
+
+.pagina-form {
+    background-color: var(--cor-fundo-escuro);
+}
+
+.card-form {
+    width: 100%;
+    max-width: 440px;
+    background-color: var(--cor-fundo-card);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+}
+
+.card-form .form-control,
+.card-form .form-select {
+    background-color: #12151e;
+    border-color: var(--cor-borda);
+    color: var(--cor-texto);
+}
+
+.card-form .form-control:focus,
+.card-form .form-select:focus {
+    background-color: #12151e;
+    border-color: var(--cor-primaria);
+    color: var(--cor-texto);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.card-form .form-label {
+    color: var(--cor-muted);
+    font-size: 0.9rem;
+}
+
+.icone-form {
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
+}
+
+.link-destaque {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-destaque:hover {
+    text-decoration: underline;
+}
+
+
+/* ── Navbar pós-login ── */
+
+.navbar-devlog {
+    background-color: #12151e;
+    border-bottom: 1px solid var(--cor-borda);
+    padding: 0.75rem 1rem;
+}
+
+
+/* ── Rodapé ── */
+
+.footer-devlog {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #12151e;
+    border-top: 1px solid var(--cor-borda);
+    color: var(--cor-muted);
+    padding: 10px 0;
+    font-size: 0.85rem;
+}
+
+/* Espaço extra no final da página para não ficar atrás do footer */
+body {
+    padding-bottom: 60px;
+}
+
+
+/* ── Página da equipe ── */
+
+.pagina-equipe {
+    background-color: var(--cor-fundo-escuro);
+    color: var(--cor-texto);
+    min-height: 100vh;
+}
+
+.equipe-titulo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.equipe-subtitulo {
+    color: var(--cor-muted);
+    font-size: 1.1rem;
+}
+
+.card-equipe {
+    background-color: var(--cor-fundo-card);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+    transition: transform 0.2s ease;
+}
+
+.card-equipe:hover {
+    transform: translateY(-4px);
+}
+
+.foto-equipe {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--cor-primaria);
+}
