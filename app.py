@@ -5,18 +5,18 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 app = Flask(__name__)
 
 # Chave secreta necessária para usar sessão e flash messages
-app.secret_key = 'devlog_secret_2024'
+app.secret_key = 'devlog_secret_2026'
 
 # ─────────────────────────────────────────
 # Dados simulados (sem banco de dados ainda)
 # ─────────────────────────────────────────
 
 usuarios = [
-    {'id': 1, 'nome': 'Rian Silva',     'email': 'rian@email.com',    'senha': '1234'},
-    {'id': 2, 'nome': 'Lucas Mendes',   'email': 'lucas@email.com',   'senha': '1234'},
-    {'id': 3, 'nome': 'Ana Souza',      'email': 'ana@email.com',     'senha': '1234'},
-    {'id': 4, 'nome': 'Pedro Alves',    'email': 'pedro@email.com',   'senha': '1234'},
-    {'id': 5, 'nome': 'Julia Costa',    'email': 'julia@email.com',   'senha': '1234'},
+    {'id': 1, 'nome': 'Rian Carraro',     'email': 'rian@gmail.com',    'senha': '1234'},
+    {'id': 2, 'nome': 'Lucas Andriotti',   'email': 'lucas@gmail.com',   'senha': '1234'},
+    {'id': 3, 'nome': 'Ana Souza',      'email': 'ana@gmail.com',     'senha': '1234'},
+    {'id': 4, 'nome': 'Pedro Alves',    'email': 'pedro@gmail.com',   'senha': '1234'},
+    {'id': 5, 'nome': 'Julia Costa',    'email': 'julia@gmail.com',   'senha': '1234'},
 ]
 
 linguagens = [
@@ -29,10 +29,10 @@ linguagens = [
 
 recursos = [
     {'id': 1, 'titulo': 'Flask - Documentação Oficial', 'tipo': 'Site',   'url': 'https://flask.palletsprojects.com', 'linguagem': 'Python',     'nota': 'Referência principal'},
-    {'id': 2, 'titulo': 'Curso JS - The Odin Project',  'tipo': 'Site',   'url': 'https://www.theodinproject.com',   'linguagem': 'JavaScript', 'nota': 'Gratuito e muito bom'},
-    {'id': 3, 'titulo': 'Python para Iniciantes',       'tipo': 'Vídeo',  'url': 'https://www.youtube.com',          'linguagem': 'Python',     'nota': 'Ótimo para revisão'},
-    {'id': 4, 'titulo': 'MDN Web Docs',                 'tipo': 'Site',   'url': 'https://developer.mozilla.org',    'linguagem': 'JavaScript', 'nota': 'Melhor referência web'},
-    {'id': 5, 'titulo': 'Curso Java Completo',          'tipo': 'Vídeo',  'url': 'https://www.youtube.com',          'linguagem': 'Java',       'nota': 'Quando começar Java'},
+    {'id': 2, 'titulo': 'Curso de Python',  'tipo': 'Site',   'url': 'https://www.youtube.com/watch?v=S9uPNppGsGo&list=PLvE-ZAFRgX8hnECDn1v9HNTI71veL3oW0',   'linguagem': 'JavaScript', 'nota': 'Gratuito e muito bom'},
+    {'id': 3, 'titulo': 'Java para Iniciantes',       'tipo': 'Vídeo',  'url': 'https://www.youtube.com/watch?v=sTX0UEplF54&list=PLHz_AreHm4dkI2ZdjTwZA4mPMxWTfNSpR',          'linguagem': 'Python',     'nota': 'Ótimo para revisão'},
+    {'id': 4, 'titulo': 'Curso em Video',               'tipo': 'Site',   'url': 'https://www.cursoemvideo.com/',    'linguagem': 'Total', 'nota': 'Melhor referência web'},
+    {'id': 5, 'titulo': 'Curso JS Completo',          'tipo': 'Vídeo',  'url': 'https://www.youtube.com/watch?v=Ptbk2af68e8',          'linguagem': 'Java',       'nota': 'Quando começar Java'},
 ]
 
 
