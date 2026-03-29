@@ -127,48 +127,6 @@ def inserir_usuario():
 
     return render_template('usuarios/inserir_usuario.html')
 
-
-@app.route('/usuarios/editar/<int:id>', methods=['GET', 'POST'])
-def editar_usuario(id):
-    if 'usuario_id' not in session:
-        return redirect(url_for('login'))
-
-    usuario = next((u for u in usuarios if u['id'] == id), None)
-    if not usuario:
-        flash('Usuário não encontrado.', 'danger')
-        return redirect(url_for('listar_usuarios'))
-
-    if request.method == 'POST':
-        nome  = request.form.get('nome')
-        email = request.form.get('email')
-        senha = request.form.get('senha')
-
-        if not nome or not email:
-            flash('Preencha todos os campos obrigatórios.', 'danger')
-            return render_template('usuarios/editar_usuario.html', usuario=usuario)
-
-        usuario['nome']  = nome
-        usuario['email'] = email
-        if senha:
-            usuario['senha'] = senha
-
-        flash('Usuário atualizado com sucesso!', 'success')
-        return redirect(url_for('listar_usuarios'))
-
-    return render_template('usuarios/editar_usuario.html', usuario=usuario)
-
-
-@app.route('/usuarios/excluir/<int:id>')
-def excluir_usuario(id):
-    if 'usuario_id' not in session:
-        return redirect(url_for('login'))
-
-    global usuarios
-    usuarios = [u for u in usuarios if u['id'] != id]
-    flash('Usuário excluído com sucesso!', 'success')
-    return redirect(url_for('listar_usuarios'))
-
-
 # ─────────────────────────────────────────
 # Linguagens
 # ─────────────────────────────────────────
@@ -201,49 +159,6 @@ def inserir_linguagem():
         return redirect(url_for('listar_linguagens'))
 
     return render_template('linguagens/inserir_linguagem.html')
-
-
-@app.route('/linguagens/editar/<int:id>', methods=['GET', 'POST'])
-def editar_linguagem(id):
-    if 'usuario_id' not in session:
-        return redirect(url_for('login'))
-
-    linguagem = next((l for l in linguagens if l['id'] == id), None)
-    if not linguagem:
-        flash('Linguagem não encontrada.', 'danger')
-        return redirect(url_for('listar_linguagens'))
-
-    if request.method == 'POST':
-        nome   = request.form.get('nome')
-        status = request.form.get('status')
-        nivel  = request.form.get('nivel')
-        nota   = request.form.get('nota')
-
-        if not nome or not status or not nivel:
-            flash('Preencha todos os campos obrigatórios.', 'danger')
-            return render_template('linguagens/editar_linguagem.html', linguagem=linguagem)
-
-        linguagem['nome']   = nome
-        linguagem['status'] = status
-        linguagem['nivel']  = nivel
-        linguagem['nota']   = nota
-
-        flash('Linguagem atualizada com sucesso!', 'success')
-        return redirect(url_for('listar_linguagens'))
-
-    return render_template('linguagens/editar_linguagem.html', linguagem=linguagem)
-
-
-@app.route('/linguagens/excluir/<int:id>')
-def excluir_linguagem(id):
-    if 'usuario_id' not in session:
-        return redirect(url_for('login'))
-
-    global linguagens
-    linguagens = [l for l in linguagens if l['id'] != id]
-    flash('Linguagem excluída com sucesso!', 'success')
-    return redirect(url_for('listar_linguagens'))
-
 
 # ─────────────────────────────────────────
 # Recursos
@@ -278,51 +193,6 @@ def inserir_recurso():
         return redirect(url_for('listar_recursos'))
 
     return render_template('recursos/inserir_recurso.html', linguagens=linguagens)
-
-
-@app.route('/recursos/editar/<int:id>', methods=['GET', 'POST'])
-def editar_recurso(id):
-    if 'usuario_id' not in session:
-        return redirect(url_for('login'))
-
-    recurso = next((r for r in recursos if r['id'] == id), None)
-    if not recurso:
-        flash('Recurso não encontrado.', 'danger')
-        return redirect(url_for('listar_recursos'))
-
-    if request.method == 'POST':
-        titulo    = request.form.get('titulo')
-        tipo      = request.form.get('tipo')
-        url       = request.form.get('url')
-        linguagem = request.form.get('linguagem')
-        nota      = request.form.get('nota')
-
-        if not titulo or not tipo or not url:
-            flash('Preencha todos os campos obrigatórios.', 'danger')
-            return render_template('recursos/editar_recurso.html', recurso=recurso, linguagens=linguagens)
-
-        recurso['titulo']    = titulo
-        recurso['tipo']      = tipo
-        recurso['url']       = url
-        recurso['linguagem'] = linguagem
-        recurso['nota']      = nota
-
-        flash('Recurso atualizado com sucesso!', 'success')
-        return redirect(url_for('listar_recursos'))
-
-    return render_template('recursos/editar_recurso.html', recurso=recurso, linguagens=linguagens)
-
-
-@app.route('/recursos/excluir/<int:id>')
-def excluir_recurso(id):
-    if 'usuario_id' not in session:
-        return redirect(url_for('login'))
-
-    global recursos
-    recursos = [r for r in recursos if r['id'] != id]
-    flash('Recurso excluído com sucesso!', 'success')
-    return redirect(url_for('listar_recursos'))
-
 
 # Equipe
 @app.route('/equipe')
