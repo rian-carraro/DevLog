@@ -30,21 +30,20 @@
                 <td><strong>{{ linguagem.nome }}</strong></td>
                 <td>
                     {% if linguagem.status == 'Estudando' %}
-                        <span class="badge bg-success">{{ linguagem.status }}</span>
+                    <span class="badge bg-success">{{ linguagem.status }}</span>
                     {% else %}
-                        <span class="badge bg-secondary">{{ linguagem.status }}</span>
+                    <span class="badge bg-secondary">{{ linguagem.status }}</span>
                     {% endif %}
                 </td>
                 <td>{{ linguagem.nivel }}</td>
                 <td class="text-muted small">{{ linguagem.nota }}</td>
                 <td class="text-center">
-                    <a href="{{ url_for('editar_linguagem', id=linguagem.id) }}" class="btn btn-sm btn-outline-warning me-1">
+                    <button class="btn btn-sm btn-outline-warning me-1">
                         <i class="bi bi-pencil"></i> Editar
-                    </a>
-                    <a href="{{ url_for('excluir_linguagem', id=linguagem.id) }}" class="btn btn-sm btn-outline-danger"
-                        onclick="return confirmarExclusao()">
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger">
                         <i class="bi bi-trash"></i> Excluir
-                    </a>
+                    </button>
                 </td>
             </tr>
             {% endfor %}
