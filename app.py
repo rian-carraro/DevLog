@@ -127,6 +127,49 @@ def inserir_usuario():
 
     return render_template('usuarios/inserir_usuario.html')
 
+@app.route('/usuarios/editar/<int:id>', methods=['GET', 'POST'])
+def editar_usuario(id):
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+
+    usuario = next((u for u in usuarios if u['id'] == id), None)
+    if not usuario:
+        flash('Usuário não encontrado.', 'danger')
+        return redirect(url_for('listar_usuarios'))
+
+    if request.method == 'POST':
+        nome  = request.form.get('nome')
+        email = request.form.get('email')
+        senha = request.form.get('senha')
+
+        if not nome or not email:
+            flash('Preencha todos os campos obrigatórios.', 'danger')
+            return render_template('usuarios/editar_usuario.html', usuario=usuario)
+
+        usuario['nome'] = nome
+        usuario['email'] = email
+        if senha:
+            usuario['senha'] = senha
+
+        flash('Usuário atualizado com sucesso!', 'success')
+        return redirect(url_for('listar_usuarios'))
+
+    return render_template('usuarios/editar_usuario.html', usuario=usuario)
+
+@app.route('/usuarios/excluir/<int:id>')
+def excluir_usuario(id):
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+
+    usuario = next((u for u in usuarios if u['id'] == id), None)
+    if usuario:
+        usuarios.remove(usuario)
+        flash('Usuário excluído com sucesso!', 'success')
+    else:
+        flash('Usuário não encontrado.', 'danger')
+
+    return redirect(url_for('listar_usuarios'))
+
 # ─────────────────────────────────────────
 # Linguagens
 # ─────────────────────────────────────────
