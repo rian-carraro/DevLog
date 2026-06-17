@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block titulo %}Recursos{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-bookmark-star me-2"></i>Recursos de estudo</h2>
+    <a href="{{ url_for('inserir_recurso') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Novo recurso
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Linguagem</th>
+                <th>Notas</th>
+                <th class="text-center">Acessar</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recurso in recursos %}
+            <tr>
+                <td>{{ recurso.id_recurso }}</td>
+                <td><strong>{{ recurso.titulo }}</strong></td>
+                <td>
+                    {% if recurso.tipo == 'Vídeo' %}
+                    <span class="badge bg-danger"><i class="bi bi-play-circle me-1"></i>{{ recurso.tipo }}</span>
+                    {% else %}
+                    <span class="badge bg-primary"><i class="bi bi-globe me-1"></i>{{ recurso.tipo }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ recurso.linguagem }}</td>
+                <td class="text-muted small">{{ recurso.nota }}</td>
+                <td class="text-center">
+                    <a href="{{ recurso.url }}" target="_blank" class="btn btn-sm btn-outline-success">
+                        <i class="bi bi-box-arrow-up-right me-1"></i>Abrir
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="{{ url_for('editar_recurso', id=recurso.id_recurso) }}"
+                       class="btn btn-sm btn-outline-warning me-1">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <button type="button" class="btn btn-sm btn-outline-danger"
+                            data-bs-toggle="modal" data-bs-target="#modalExcluir"
+                            data-id="{{ recurso.id_recurso }}" data-nome="{{ recurso.titulo }}">
+                        <i class="bi bi-trash"></i> Excluir
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de confirmação -->
+<div class="modal fade" id="modalExcluir" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Confirmar exclusão
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir o recurso <strong id="excluirNome"></strong>?
+                <br>Esta ação não poderá ser desfeita.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <form id="formExcluir" method="POST">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Excluir
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const modalExcluir = document.getElementById('modalExcluir');
+    modalExcluir.addEventListener('show.bs.modal', function (event) {
+        const botao = event.relatedTarget;
+        document.getElementById('excluirNome').textContent = botao.getAttribute('data-nome');
+        document.getElementById('formExcluir').action = '/recursos/excluir/' + botao.getAttribute('data-id');
+    });
+</script>
+{% endblock %}

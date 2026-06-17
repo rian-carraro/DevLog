@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block titulo %}Funções{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a href="{{ url_for('listar_usuarios') }}" class="text-muted text-decoration-none small">
+            <i class="bi bi-arrow-left me-1"></i>Voltar para Usuários
+        </a>
+        <h2 class="mt-1"><i class="bi bi-shield-lock me-2"></i>Funções de acesso</h2>
+    </div>
+    <a href="{{ url_for('inserir_funcao') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Nova função
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Descrição</th>
+                <th>Permissões</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in dados %}
+            <tr>
+                <td>{{ d.id_funcao }}</td>
+                <td><strong>{{ d.nome }}</strong></td>
+                <td>
+                    {% if d.status == 'Ativo' %}
+                        <span class="badge bg-success">Ativo</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Inativo</span>
+                    {% endif %}
+                </td>
+                <td class="text-muted">{{ d.descricao }}</td>
+                <td>
+                    {% if d.gerenciar_usuarios %}
+                        <span class="badge bg-primary me-1"><i class="bi bi-people me-1"></i>Usuários</span>
+                    {% endif %}
+                    {% if d.gerenciar_linguagens %}
+                        <span class="badge bg-info text-dark me-1"><i class="bi bi-terminal me-1"></i>Linguagens</span>
+                    {% endif %}
+                    {% if d.gerenciar_recursos %}
+                        <span class="badge bg-warning text-dark me-1"><i class="bi bi-bookmark-star me-1"></i>Recursos</span>
+                    {% endif %}
+                    {% if d.gerenciar_funcoes %}
+                        <span class="badge bg-danger me-1"><i class="bi bi-shield-lock me-1"></i>Funções</span>
+                    {% endif %}
+                    {% if not d.gerenciar_usuarios and not d.gerenciar_linguagens and not d.gerenciar_recursos and not d.gerenciar_funcoes %}
+                        <span class="text-muted fst-italic">Sem permissões</span>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a href="{{ url_for('editar_funcao', id=d.id_funcao) }}" class="btn btn-sm btn-outline-warning me-1">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <button type="button" class="btn btn-sm btn-outline-danger"
+                            data-bs-toggle="modal" data-bs-target="#modalExcluir"
+                            data-id="{{ d.id_funcao }}" data-nome="{{ d.nome }}">
+                        <i class="bi bi-trash"></i> Excluir
+                    </button>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center text-muted fst-italic py-4">
+                    Nenhuma função cadastrada ainda.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de confirmação -->
+<div class="modal fade" id="modalExcluir" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Confirmar exclusão
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir a função <strong id="excluirNome"></strong>?
+                <br>Esta ação não poderá ser desfeita.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <form id="formExcluir" method="POST">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Excluir
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const modalExcluir = document.getElementById('modalExcluir');
+    modalExcluir.addEventListener('show.bs.modal', function (event) {
+        const botao = event.relatedTarget;
+        document.getElementById('excluirNome').textContent = botao.getAttribute('data-nome');
+        document.getElementById('formExcluir').action = '/funcoes/excluir/' + botao.getAttribute('data-id');
+    });
+</script>
+{% endblock %}

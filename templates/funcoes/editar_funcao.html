@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar Função{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a href="{{ url_for('listar_funcoes') }}" class="text-muted text-decoration-none small">
+            <i class="bi bi-arrow-left me-1"></i>Voltar para Funções
+        </a>
+        <h2 class="mt-1"><i class="bi bi-shield-check me-2"></i>Editar função</h2>
+    </div>
+</div>
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-body">
+        <form method="POST">
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome da função <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ funcao.nome }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="Ativo"   {% if funcao.status == 'Ativo' %}selected{% endif %}>Ativo</option>
+                    <option value="Inativo" {% if funcao.status == 'Inativo' %}selected{% endif %}>Inativo</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="3">{{ funcao.descricao }}</textarea>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Permissões de acesso</label>
+                <div class="d-flex flex-column gap-2 mt-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="permissoes" value="usuarios" id="perm_usuarios"
+                            {% if 'usuarios' in funcao.permissoes %}checked{% endif %}>
+                        <label class="form-check-label" for="perm_usuarios">
+                            <i class="bi bi-people me-1 text-primary"></i>Usuários
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="permissoes" value="linguagens" id="perm_linguagens"
+                            {% if 'linguagens' in funcao.permissoes %}checked{% endif %}>
+                        <label class="form-check-label" for="perm_linguagens">
+                            <i class="bi bi-terminal me-1 text-info"></i>Linguagens
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="permissoes" value="recursos" id="perm_recursos"
+                            {% if 'recursos' in funcao.permissoes %}checked{% endif %}>
+                        <label class="form-check-label" for="perm_recursos">
+                            <i class="bi bi-bookmark-star me-1 text-warning"></i>Recursos
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="permissoes" value="funcoes" id="perm_funcoes"
+                            {% if 'funcoes' in funcao.permissoes %}checked{% endif %}>
+                        <label class="form-check-label" for="perm_funcoes">
+                            <i class="bi bi-shield-lock me-1 text-danger"></i>Funções
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg me-1"></i>Salvar alterações
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

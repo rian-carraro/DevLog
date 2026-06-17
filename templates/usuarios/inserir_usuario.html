@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block titulo %}Novo usuário{% endblock %}
+
+{% block conteudo %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <h2 class="mb-4"><i class="bi bi-person-plus me-2"></i>Novo usuário</h2>
+
+        <form action="{{ url_for('inserir_usuario') }}" method="POST">
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome completo <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nome" name="nome"
+                    placeholder="Nome do usuário" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" name="email"
+                    placeholder="email@exemplo.com" autocomplete="off" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha <span class="text-danger">*</span></label>
+                <input type="password" class="form-control" id="senha" name="senha"
+                    placeholder="Senha de acesso" autocomplete="new-password" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirma_senha" class="form-label">Confirmar Senha <span class="text-danger">*</span></label>
+                <input type="password" class="form-control" id="confirma_senha" name="confirma_senha"
+                    placeholder="Repita a senha" autocomplete="new-password" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="funcao" class="form-label">Função</label>
+                <select class="form-select" id="funcao" name="funcao">
+                    <option value="" disabled selected>Selecione uma função...</option>
+                    {% for f in lista_funcoes %}
+                    <option value="{{ f.id_funcao }}">{{ f.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-1"></i>Salvar
+                </button>
+                <a href="{{ url_for('listar_usuarios') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

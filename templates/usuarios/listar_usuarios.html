@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block titulo %}Usuários{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-people me-2"></i>Usuários cadastrados</h2>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('listar_funcoes') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-shield-lock me-1"></i>Funções
+        </a>
+        <a href="{{ url_for('inserir_usuario') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i>Novo usuário
+        </a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Função</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in dados %}
+            <tr>
+                <td>{{ usuario.id_cliente }}</td>
+                <td>{{ usuario.nome }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                    {% if usuario.funcao %}
+                        {% if usuario.funcao == 'Administrador' %}
+                            <span class="badge bg-danger"><i class="bi bi-shield-lock me-1"></i>{{ usuario.funcao }}</span>
+                        {% elif usuario.funcao == 'Editor' %}
+                            <span class="badge bg-primary"><i class="bi bi-pencil me-1"></i>{{ usuario.funcao }}</span>
+                        {% elif usuario.funcao == 'Visualizador' %}
+                            <span class="badge bg-secondary"><i class="bi bi-eye me-1"></i>{{ usuario.funcao }}</span>
+                        {% else %}
+                            <span class="badge bg-info text-dark"><i class="bi bi-person me-1"></i>{{ usuario.funcao }}</span>
+                        {% endif %}
+                    {% else %}
+                        <span class="text-muted fst-italic">Sem função</span>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{{ url_for('editar_usuario', id=usuario.id_cliente) }}"
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                data-bs-toggle="modal" data-bs-target="#modalExcluir"
+                                data-id="{{ usuario.id_cliente }}" data-nome="{{ usuario.nome }}">
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de confirmação -->
+<div class="modal fade" id="modalExcluir" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Confirmar exclusão
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir o usuário <strong id="excluirNome"></strong>?
+                <br>Esta ação não poderá ser desfeita.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <form id="formExcluir" method="POST">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Excluir
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const modalExcluir = document.getElementById('modalExcluir');
+    modalExcluir.addEventListener('show.bs.modal', function (event) {
+        const botao = event.relatedTarget;
+        document.getElementById('excluirNome').textContent = botao.getAttribute('data-nome');
+        document.getElementById('formExcluir').action = '/usuarios/excluir/' + botao.getAttribute('data-id');
+    });
+</script>
+{% endblock %}

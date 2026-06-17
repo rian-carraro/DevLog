@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevLog — {% block titulo %}{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="pagina-publica">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" id="sidebar">
+
+        <!-- Logo -->
+        <div class="sidebar-logo">
+            <a href="{{ url_for('index') }}" class="logo-link">
+                <span class="logo-icon"><i class="bi bi-code-slash"></i></span>
+                <span class="logo-text">DevLog</span>
+            </a>
+        </div>
+
+        <!-- Separador -->
+        <div class="sidebar-divider"></div>
+
+        <!-- Nav links -->
+        <nav class="sidebar-nav">
+            <a class="sidebar-link {% if request.endpoint == 'listar_usuarios' or request.endpoint == 'inserir_usuario' or request.endpoint == 'editar_usuario' %}active{% endif %}"
+               href="{{ url_for('listar_usuarios') }}">
+                <span class="sidebar-icon"><i class="bi bi-people"></i></span>
+                <span class="sidebar-label">Usuários</span>
+            </a>
+            <a class="sidebar-link {% if request.endpoint == 'listar_linguagens' or request.endpoint == 'inserir_linguagem' or request.endpoint == 'editar_linguagem' %}active{% endif %}"
+               href="{{ url_for('listar_linguagens') }}">
+                <span class="sidebar-icon"><i class="bi bi-terminal"></i></span>
+                <span class="sidebar-label">Linguagens</span>
+            </a>
+            <a class="sidebar-link {% if request.endpoint == 'listar_recursos' or request.endpoint == 'inserir_recurso' or request.endpoint == 'editar_recurso' %}active{% endif %}"
+               href="{{ url_for('listar_recursos') }}">
+                <span class="sidebar-icon"><i class="bi bi-bookmark-star"></i></span>
+                <span class="sidebar-label">Recursos</span>
+            </a>
+            <a class="sidebar-link {% if request.endpoint == 'listar_funcoes' or request.endpoint == 'inserir_funcao' or request.endpoint == 'editar_funcao' %}active{% endif %}"
+               href="{{ url_for('listar_funcoes') }}">
+                <span class="sidebar-icon"><i class="bi bi-shield-lock"></i></span>
+                <span class="sidebar-label">Funções</span>
+            </a>
+            <a class="sidebar-link {% if request.endpoint == 'equipe' %}active{% endif %}"
+               href="{{ url_for('equipe') }}">
+                <span class="sidebar-icon"><i class="bi bi-person-badge"></i></span>
+                <span class="sidebar-label">Equipe</span>
+            </a>
+        </nav>
+
+        <!-- Spacer -->
+        <div class="sidebar-spacer"></div>
+
+        <!-- Separador -->
+        <div class="sidebar-divider"></div>
+
+        <!-- Usuário + Sair -->
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="user-avatar">
+                    {{ session['usuario_nome'][0] | upper }}
+                </div>
+                <span class="user-name">{{ session['usuario_nome'] }}</span>
+            </div>
+            <a href="{{ url_for('logout') }}" class="sidebar-logout" title="Sair">
+                <i class="bi bi-box-arrow-right"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ── TOPBAR MOBILE ── -->
+    <header class="topbar-mobile">
+        <button class="topbar-toggle" id="sidebarToggle" aria-label="Abrir menu">
+            <i class="bi bi-list"></i>
+        </button>
+        <span class="topbar-brand">
+            <i class="bi bi-code-slash me-2"></i>DevLog
+        </span>
+        <a href="{{ url_for('logout') }}" class="topbar-logout">
+            <i class="bi bi-box-arrow-right"></i>
+        </a>
+    </header>
+
+    <!-- ── OVERLAY mobile ── -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ── CONTEÚDO PRINCIPAL ── -->
+    <main class="main-content">
+
+        <!-- Flash mensagens -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                    {% for categoria, mensagem in messages %}
+                        <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+                            {{ mensagem }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Bloco de conteúdo -->
+        <div class="content-inner">
+            {% block conteudo %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block scripts %}{% endblock %}
+
+    <script>
+        // Toggle sidebar no mobile
+        const toggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        }
+        toggle?.addEventListener('click', openSidebar);
+        overlay?.addEventListener('click', closeSidebar);
+    </script>
+</body>
+
+</html>
