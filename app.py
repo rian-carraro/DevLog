@@ -1,4 +1,3 @@
-from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from db import execute_one, iniciar_bd, execute_query
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -78,13 +77,13 @@ def login():
             flash('Nenhum usuário cadastrado no sistema.', 'danger')
             return redirect(url_for('login'))
 
-        session['usuario_id']            = usuario['id_cliente']
-        session['usuario_nome']          = usuario['nome']
-        session['usuario_funcao']        = usuario['funcao']
-        session['gerenciar_funcoes']     = usuario['gerenciar_funcoes']
-        session['gerenciar_usuarios']    = usuario['gerenciar_usuarios']
-        session['gerenciar_linguagens']  = usuario['gerenciar_linguagens']
-        session['gerenciar_recursos']    = usuario['gerenciar_recursos']
+        session['usuario_id'] = usuario['id_cliente']
+        session['usuario_nome'] = usuario['nome']
+        session['usuario_funcao'] = usuario['funcao']
+        session['gerenciar_funcoes'] = usuario['gerenciar_funcoes']
+        session['gerenciar_usuarios'] = usuario['gerenciar_usuarios']
+        session['gerenciar_linguagens'] = usuario['gerenciar_linguagens']
+        session['gerenciar_recursos'] = usuario['gerenciar_recursos']
 
         flash(f'Bem-vindo, {usuario["nome"]}!', 'success')
 
@@ -142,11 +141,11 @@ def inserir_usuario():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        nome           = request.form.get('nome', '').strip()
-        email          = request.form.get('email', '').strip()
-        senha          = request.form.get('senha', '').strip()
+        nome = request.form.get('nome', '').strip()
+        email = request.form.get('email', '').strip()
+        senha = request.form.get('senha', '').strip()
         confirma_senha = request.form.get('confirma_senha', '').strip()
-        funcao_id      = request.form.get('funcao', '').strip()
+        funcao_id = request.form.get('funcao', '').strip()
 
         if not nome or not email or not senha:
             flash('Preencha todos os campos obrigatórios.', 'danger')
@@ -186,9 +185,9 @@ def editar_usuario(id):
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        nome      = request.form.get('nome', '').strip()
-        email     = request.form.get('email', '').strip()
-        senha     = request.form.get('senha', '').strip()
+        nome = request.form.get('nome', '').strip()
+        email = request.form.get('email', '').strip()
+        senha = request.form.get('senha', '').strip()
         funcao_id = request.form.get('funcao', '').strip()
 
         if not nome or not email:
@@ -275,15 +274,15 @@ def inserir_funcao():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        nome      = request.form.get('nome', '').strip()
-        status    = request.form.get('status', 'Ativo')
+        nome = request.form.get('nome', '').strip()
+        status = request.form.get('status', 'Ativo')
         descricao = request.form.get('descricao', '').strip()
         permissoes = request.form.getlist('permissoes')
 
-        gerenciar_usuarios   = 1 if 'usuarios'   in permissoes else 0
+        gerenciar_usuarios = 1 if 'usuarios' in permissoes else 0
         gerenciar_linguagens = 1 if 'linguagens' in permissoes else 0
-        gerenciar_recursos   = 1 if 'recursos'   in permissoes else 0
-        gerenciar_funcoes    = 1 if 'funcoes'    in permissoes else 0
+        gerenciar_recursos = 1 if 'recursos' in permissoes else 0
+        gerenciar_funcoes = 1 if 'funcoes' in permissoes else 0
 
         if not nome or not status:
             flash('O campo <b>NOME</b> é obrigatório.', 'danger')
@@ -316,15 +315,15 @@ def editar_funcao(id):
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        nome      = request.form.get('nome', '').strip()
-        status    = request.form.get('status', 'Ativo')
+        nome = request.form.get('nome', '').strip()
+        status = request.form.get('status', 'Ativo')
         descricao = request.form.get('descricao', '').strip()
         permissoes = request.form.getlist('permissoes')
 
-        gerenciar_usuarios   = 1 if 'usuarios'   in permissoes else 0
+        gerenciar_usuarios = 1 if 'usuarios' in permissoes else 0
         gerenciar_linguagens = 1 if 'linguagens' in permissoes else 0
-        gerenciar_recursos   = 1 if 'recursos'   in permissoes else 0
-        gerenciar_funcoes    = 1 if 'funcoes'    in permissoes else 0
+        gerenciar_recursos = 1 if 'recursos' in permissoes else 0
+        gerenciar_funcoes = 1 if 'funcoes' in permissoes else 0
 
         if not nome or not status:
             flash('O campo <b>NOME</b> é obrigatório.', 'danger')
@@ -392,10 +391,10 @@ def inserir_linguagem():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        nome   = request.form.get('nome', '').strip()
+        nome = request.form.get('nome', '').strip()
         status = request.form.get('status', '').strip()
-        nivel  = request.form.get('nivel', '').strip()
-        notas  = request.form.get('nota', '').strip()
+        nivel = request.form.get('nivel', '').strip()
+        notas = request.form.get('nota', '').strip()
 
         if not nome or not status or not nivel:
             flash('Preencha todos os campos obrigatórios.', 'danger')
@@ -421,10 +420,10 @@ def editar_linguagem(id):
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        nome   = request.form.get('nome', '').strip()
+        nome = request.form.get('nome', '').strip()
         status = request.form.get('status', '').strip()
-        nivel  = request.form.get('nivel', '').strip()
-        notas  = request.form.get('notas', '').strip()
+        nivel = request.form.get('nivel', '').strip()
+        notas = request.form.get('notas', '').strip()
 
         if not nome or not status or not nivel:
             flash('Preencha todos os campos obrigatórios.', 'danger')
@@ -483,11 +482,11 @@ def inserir_recurso():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        titulo    = request.form.get('titulo', '').strip()
-        tipo      = request.form.get('tipo', '').strip()
-        url       = request.form.get('url', '').strip()
+        titulo = request.form.get('titulo', '').strip()
+        tipo = request.form.get('tipo', '').strip()
+        url = request.form.get('url', '').strip()
         linguagem = request.form.get('linguagem', '').strip()
-        nota      = request.form.get('nota', '').strip()
+        nota = request.form.get('nota', '').strip()
 
         if not titulo or not tipo or not url:
             flash('Preencha todos os campos obrigatórios.', 'danger')
@@ -514,11 +513,11 @@ def editar_recurso(id):
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        titulo    = request.form.get('titulo', '').strip()
-        tipo      = request.form.get('tipo', '').strip()
-        url       = request.form.get('url', '').strip()
+        titulo = request.form.get('titulo', '').strip()
+        tipo = request.form.get('tipo', '').strip()
+        url = request.form.get('url', '').strip()
         linguagem = request.form.get('linguagem', '').strip()
-        nota      = request.form.get('nota', '').strip()
+        nota = request.form.get('nota', '').strip()
 
         if not titulo or not tipo or not url:
             flash('Preencha todos os campos obrigatórios.', 'danger')
